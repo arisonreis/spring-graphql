@@ -1,0 +1,42 @@
+# TODO -> Deve-se criar a configuraçãop graphql no application.properties
+# TODO -> spring.graphql.graphiql.enabled=true
+# TODO -> Verificar se o np,e dos atributos e entidades estão de acordo com as classes
+# TODO -> TIPOS DE ENTRADA SEMPRE SER "input", TIPOS DE CATEGORIAS E ENTIDADES SEMPRE "type"
+
+#Criando uma entidade (tipo)
+type Category{
+    name: String
+    id: ID!
+}
+
+input ProductInput{
+    name: String!
+    price: Int!
+    categoryId: ID!
+}
+
+type Product{
+    id:ID
+    name:String
+    price: Int
+    category: Category
+}
+
+# Criando a ação (mutação) que recebe um tipo (categoryInput do tipo abaixo)
+# e retorna  um category (do tipo acima)
+type Mutation{
+    addCategory(category:CategoryInput): Category
+    addProducts(productInput:ProductInput):Product
+}
+
+# Tipo de entrada (!-> obrigatório)
+input CategoryInput{
+    name: String!
+}
+
+#Query a ser executada -> retorna uma Category
+type Query{
+    categoryById(id:ID):Category
+    products: [Product]
+    categories: [Category]
+}
